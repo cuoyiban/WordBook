@@ -4,6 +4,7 @@ using PureMVC.Patterns;
 using PureMVC.Interfaces;
 using UnityEngine;
 
+
 class ApplicationFacade : Facade
 {
 	public new static IFacade Instance
@@ -25,7 +26,13 @@ class ApplicationFacade : Facade
         }
     }
 
-    public  ApplicationFacade()
+	public void Startup()
+	{
+		Debug.Log("Startup() to SendNotification.");
+		SendNotification(EventEnum.COMMAND_STARTUP);
+	}
+
+	public  ApplicationFacade()
 	{
 		
 	}

@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio 2015
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WB.CSharp", "WB.CSharp.csproj", "{C52C6FC6-8C8B-1AFC-8FBA-6B7C3B6DF6C7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PureMVC.DotNET.2015.40", "puremvc\PureMVC.DotNET.2015.40\PureMVC.DotNET.2015.40.csproj", "{A1482CF1-5566-4636-8590-30ED9CF3D4D9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +15,10 @@ Global
 		{C52C6FC6-8C8B-1AFC-8FBA-6B7C3B6DF6C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C52C6FC6-8C8B-1AFC-8FBA-6B7C3B6DF6C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C52C6FC6-8C8B-1AFC-8FBA-6B7C3B6DF6C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1482CF1-5566-4636-8590-30ED9CF3D4D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1482CF1-5566-4636-8590-30ED9CF3D4D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1482CF1-5566-4636-8590-30ED9CF3D4D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1482CF1-5566-4636-8590-30ED9CF3D4D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

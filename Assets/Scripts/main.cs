@@ -1,23 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-//using PureMVC.Patterns;
+using PureMVC.Patterns;
 
-class A
-{
 
-}
-
-class B : A
-{
-
-}
 public class main : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        // Facade fa = new Facade();
-      
+		ApplicationFacade facade = ApplicationFacade.Instance as ApplicationFacade;
+		facade.Startup();
 	}
 	
 	// Update is called once per frame
