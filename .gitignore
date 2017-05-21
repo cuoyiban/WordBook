@@ -1,0 +1,9 @@
+Library/
+Temp/
+.vs/
+/WB.CSharp.csproj
+/WB.CSharp.Editor.csproj
+/WB.CSharp.Plugins.csproj
+/WB.sln
+/WordBook.CSharp.csproj
+/WordBook.sln

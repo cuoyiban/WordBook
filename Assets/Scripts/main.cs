@@ -8,8 +8,8 @@ public class main : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		ApplicationFacade facade = ApplicationFacade.Instance as ApplicationFacade;
-		facade.Startup();
+		//ApplicationFacade facade = ApplicationFacade.Instance as ApplicationFacade;
+		//facade.Startup();
 	}
 	
 	// Update is called once per frame

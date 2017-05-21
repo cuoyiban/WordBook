@@ -1,0 +1,7 @@
+E:\Work\WB\Assets\Plugins\PureMVC.DotNET.40.dll
+E:\Work\WB\Assets\Plugins\PureMVC.DotNET.40.pdb
+E:\Work\WB\Assets\Plugins\PureMVC.DotNET.40.xml
+E:\Work\C sharp stand puremvc\puremvc-csharp-standard-framework\PureMVC.DotNET.2015.40\obj\Debug\PureMVC.DotNET.40.dll
+E:\Work\C sharp stand puremvc\puremvc-csharp-standard-framework\PureMVC.DotNET.2015.40\obj\Debug\PureMVC.DotNET.40.pdb
+E:\Work\WB\puremvc\PureMVC.DotNET.2015.40\obj\Debug\PureMVC.DotNET.40.dll
+E:\Work\WB\puremvc\PureMVC.DotNET.2015.40\obj\Debug\PureMVC.DotNET.40.pdb
