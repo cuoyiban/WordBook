@@ -1,5 +1,6 @@
 Library/
 Temp/
+Backup/
 .vs/
 /WB.CSharp.csproj
 /WB.CSharp.Editor.csproj
@@ -7,3 +8,6 @@ Temp/
 /WB.sln
 /WordBook.CSharp.csproj
 /WordBook.sln
+/UpgradeLog.htm
+puremvc/PureMVC.DotNET/bin/
+puremvc/PureMVC.DotNET/obj/

@@ -1,12 +1,16 @@
 ﻿using System;
+using PureMVC;
+using PureMVC.Patterns;
+using PureMVC.Interfaces;
 using System.Collections.Generic;
 
-namespace Assets.Scripts.View.Mediator
-{
-	class UI_Main
-	{
-	}
-}
+//public class UI_M_Main : Mediator, IMediator
+//{
+//	//public UI_M_Main()
+//	//{
+
+//	//}
+//}
 
 //using UnityEngine;
 //using System.Collections;

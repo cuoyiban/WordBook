@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>PureMVC.DotNET.40</name>
+        <name>PureMVC.DotNET.20</name>
     </assembly>
     <members>
         <member name="T:PureMVC.Interfaces.ICommand">
