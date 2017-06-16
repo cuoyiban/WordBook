@@ -22,12 +22,13 @@ class ProxyEnum
 
 class UIEnum
 {
-	//public static string UI_MAIN = "MainUI";
-	//public static string UI_ADD_WORD = "A"
+	public static string Main = "MainUI";
+	public static string Main_Menu = "MainMenu";
 }
 
 class UIPathEnum
 {
-	public static string UI_MAIN = "Assets\\UIPrefab\\UI_AddWord.prefab";
-	public static string UI_ADD_WORD = "Assets\\UIPrefab\\UI_Book.prefab";
+	public static string Main = "Assets\\UIPrefab\\UI_AddWord.prefab";
+	public static string Main_Menu = "Assets\\UIPrefab\\UI_Main_Menu.prefab";
+	public static string Add_Word = "Assets\\UIPrefab\\UI_Book.prefab";
 }

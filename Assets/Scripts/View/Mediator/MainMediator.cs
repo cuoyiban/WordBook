@@ -4,9 +4,9 @@ using PureMVC.Patterns;
 using PureMVC.Interfaces;
 using System.Collections.Generic;
 
-//public class UI_M_Main : Mediator, IMediator
+//public class MainMediator : Mediator, IMediator
 //{
-//	//public UI_M_Main()
+//	//public MainMediator()
 //	//{
 
 //	//}
