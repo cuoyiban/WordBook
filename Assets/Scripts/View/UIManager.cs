@@ -35,7 +35,7 @@ public class UIManager
 		m_dicUIContainer.Add(UIEnum.Main_Menu, UIPathEnum.Main_Menu);
 	}
 
-	private void RegisterUI(string strName , string strPath)
+	private void RegisterUI(string strName, string strPath)
 	{
 		if (m_dicUIContainer.ContainsKey(strName))
 		{
@@ -70,7 +70,7 @@ public class UIManager
 		return obj.GetComponent<T>();
 	}
 
-	public T GetMainMenu()
+	public UI_Main GetMainMenu()
 	{
 		GameObject obj;
 		if (m_objMainMenu == null)
@@ -86,5 +86,13 @@ public class UIManager
 		obj = m_dicUICache[UIEnum.Main_Menu];
 		obj.SetActive(true);
 		return obj.GetComponent<UI_Menu>();
+	}
+
+	public void HideCurUI()
+	{
+		if (m_objCurUI != null)
+		{
+			m_objCurUI.SetActive(false);
+		}
 	}
 }

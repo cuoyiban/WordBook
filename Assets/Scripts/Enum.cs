@@ -13,6 +13,7 @@ class EventEnum
 {
 	public static string COMMAND_STARTUP = "Startup";
 	public static string COMMAND_WORD_ADDED = "WordAdded";
+	public static string COMMAND_SELECT_FUN_PAGE = "Select_fun_page";//选择功能界面
 }
 
 class ProxyEnum
@@ -22,8 +23,8 @@ class ProxyEnum
 
 class UIEnum
 {
-	public static string Main = "MainUI";
-	public static string Main_Menu = "MainMenu";
+	public const string Main = "MainUI";
+	public const string Main_Menu = "MainMenu";
 }
 
 class UIPathEnum

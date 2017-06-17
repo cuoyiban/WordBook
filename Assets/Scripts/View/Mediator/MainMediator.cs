@@ -3,14 +3,45 @@ using PureMVC;
 using PureMVC.Patterns;
 using PureMVC.Interfaces;
 using System.Collections.Generic;
+using UnityEngine;
 
-//public class MainMediator : Mediator, IMediator
-//{
-//	//public MainMediator()
-//	//{
+public class MainMediator : Mediator, IMediator
+{
+	private UI_Main uiMain;
+	private List<string> listCareOfEvent = new List<string> { EventEnum.COMMAND_SELECT_FUN_PAGE };
+	public new const string NAME = UIEnum.Main;
+	public MainMediator() : base(MainMediator.NAME)
+	{
+		Debug.Log("MainMediator()");
+	}
+	#region override Mediator func
+	public override void OnRegister()
+	{
+		base.OnRegister();
+	}
 
-//	//}
-//}
+	public override IList<string> ListNotificationInterests()
+	{
+		return listCareOfEvent;
+	}
+
+	public override void HandleNotification(INotification notification)
+	{
+		switch (notification.Name)
+		{
+			case EventEnum.COMMAND_SELECT_FUN_PAGE:
+				if (notification.Type == NAME)
+				{
+
+				}
+				break;
+			default:
+				break;
+		}
+	}
+
+	#endregion
+}
 
 //using UnityEngine;
 //using System.Collections;
