@@ -44,4 +44,17 @@ class ApplicationFacade : Facade
 		base.InitializeController();
 		RegisterCommand(EventEnum.COMMAND_STARTUP, typeof(StartupCommand));
 	}
+
+	protected override void InitializeView()
+	{
+		base.InitializeView();
+		RegisterMediator(new TopBarMediator(UIEnum.TopBar));
+		RegisterMediator(new MainMediator(UIEnum.Main));
+		RegisterMediator(new SettingMediator(UIEnum.Setting));
+	}
+
+	protected override void InitializeModel()
+	{
+		base.InitializeModel();
+	}
 }

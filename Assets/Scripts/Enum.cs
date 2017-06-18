@@ -11,9 +11,9 @@ class Enum
 
 class EventEnum
 {
-	public static string COMMAND_STARTUP = "Startup";
-	public static string COMMAND_WORD_ADDED = "WordAdded";
-	public static string COMMAND_SELECT_FUN_PAGE = "Select_fun_page";//选择功能界面
+	public const string COMMAND_STARTUP = "Startup";
+	public const string COMMAND_WORD_ADDED = "WordAdded";
+	public const string COMMAND_SELECT_FUN_PAGE = "Select_fun_page";//选择功能界面
 }
 
 class ProxyEnum
@@ -23,13 +23,15 @@ class ProxyEnum
 
 class UIEnum
 {
-	public const string Main = "MainUI";
-	public const string Main_Menu = "MainMenu";
+	public const string TopBar = "TopBar";
+	public const string Main = "Main";
+	public const string Setting = "Setting";
 }
 
 class UIPathEnum
 {
 	public static string Main = "Assets\\UIPrefab\\UI_AddWord.prefab";
 	public static string Main_Menu = "Assets\\UIPrefab\\UI_Main_Menu.prefab";
+	public static string Setting = "Assets\\UIPrefab\\UI_Setting.prefab";
 	public static string Add_Word = "Assets\\UIPrefab\\UI_Book.prefab";
 }
