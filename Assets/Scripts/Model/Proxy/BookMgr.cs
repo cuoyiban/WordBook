@@ -43,7 +43,15 @@ namespace Model.Proxy {
 		public BookMgr()
         {
             m_dicBooks = new Dictionary<string, BookVO>();
-        }
+
+			AddWord("sapling", "Sepling is a baby true");
+			AddWord("sapling", "Sepling is so cute");
+			AddWord("sapling", "I like sapling");
+			AddWord("sapling", "Sepling is so cute");
+			AddWord("glass", "He need some glass");
+			AddWord("glass", "I have got glass");
+			AddWord("apple", "Apple is so rich");
+		}
 
         public BookVO AddBook(string strBookName)
         {
@@ -59,7 +67,6 @@ namespace Model.Proxy {
         public void AddWord(string strBookName , string strWord , string strContext)
         {
             BookVO book = null;
-            WordVO word = null;
             if (!m_dicBooks.ContainsKey(strBookName))
             {
                 book = AddBook(strBookName);
@@ -68,22 +75,24 @@ namespace Model.Proxy {
 			{
 				book = m_dicBooks[strBookName];
 			}
-            if (!book.Words.ContainsKey(strWord))
-            {
-                word = new WordVO(strWord);
-                book.Words.Add(strWord, word);
-			}
-			else
-			{
-				word = book.Words[strWord];
-			}
-			word.AddContext(strContext);
+			book.AddWord(strWord, strContext);
         }
 
 		public void AddWord(string strWord , string strContext)
 		{
 			AddWord(m_strDefaultBook, strWord, strContext);
 		}
+
+		public WordVO GetWord(string strWord)
+		{
+			if (!m_dicBooks.ContainsKey(m_strDefaultBook))
+			{
+				return new WordVO(strWord);
+			}
+			return m_dicBooks[m_strDefaultBook].GetWord(strWord);
+		}
+
+		
 
 		public List<WordVO> GetWordWithSort(string strBookName , Comparison<WordVO> sortFunc = null)
 		{
@@ -109,24 +118,23 @@ namespace Model.Proxy {
 			}
 		}
 
-
 		#region Debug Func
 		public string DebugInfo()
 		{
 			string str = "";
-			str += string.Format("Book Count {0}\n" , m_dicBooks.Count);
-			foreach (var item in m_dicBooks)
-			{
-				str += string.Format("Book {0} , has {1} Words \n" , item.Value.BookName , item.Value.Words.Count);
-				foreach (var item2 in item.Value.Words)
-				{
-					str += string.Format("\t Word {0} , Count {1}\n", item2.Value.Spell, item2.Value.Count);
-					for (int i = 0; i < item2.Value.Count; i++)
-					{
-						str += string.Format("\t\t Context :{0} , Time {1} , RelatedWord {2} \n", item2.Value.Contexts[i].Context, item2.Value.Contexts[i].AddTime, item2.Value.Contexts[i].RelatedWord);
-					}
-				}
-			}
+			//str += string.Format("Book Count {0}\n", m_dicBooks.Count);
+			//foreach (var item in m_dicBooks)
+			//{
+			//	str += string.Format("Book {0} , has {1} Words \n", item.Value.BookName, item.Value.Words.Count);
+			//	foreach (var item2 in item.Value.Words)
+			//	{
+			//		str += string.Format("\t Word {0} , Count {1}\n", item2.Value.Spell, item2.Value.Count);
+			//		for (int i = 0; i < item2.Value.Count; i++)
+			//		{
+			//			str += string.Format("\t\t Context :{0} , Time {1} , RelatedWord {2} \n", item2.Value.Contexts[i].Context, item2.Value.Contexts[i].AddTime, item2.Value.Contexts[i].RelatedWord);
+			//		}
+			//	}
+			//}
 			return str;
 		}
 		#endregion

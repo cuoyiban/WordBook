@@ -4,9 +4,13 @@ using PureMVC.Patterns;
 using PureMVC.Interfaces;
 using System.Collections.Generic;
 using UnityEngine;
+using Model.Proxy;
+using Model.VO;
 
 public class MainMediator : ViewMediator, IMediator
 {
+	private BookMgr bookMgr;
+	private List<WordVO> listWords;
 	private UI_Main uiMain;
 	private new List<string> listCareOfEvent = new List<string>();
 	public MainMediator(string strUIName) : base(strUIName)
@@ -18,6 +22,10 @@ public class MainMediator : ViewMediator, IMediator
 	{
 		base.OnRegister();
 		uiMain = UIObj.GetComponent<UI_Main>();
+		bookMgr = ApplicationFacade.Instance.RetrieveProxy(ProxyEnum.BOOK_MGR) as BookMgr;
+
+		listWords = bookMgr.GetWordWithSort("Default");
+		uiMain.RefreshWordList(listWords, 4);
 	}
 
 	public override IList<string> ListNotificationInterests()

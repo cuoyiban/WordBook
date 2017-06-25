@@ -43,6 +43,7 @@ class ApplicationFacade : Facade
 	{
 		base.InitializeController();
 		RegisterCommand(EventEnum.COMMAND_STARTUP, typeof(StartupCommand));
+		RegisterCommand(EventEnum.COMMAND_ADD_WORD, typeof(AddWordCommand));
 	}
 
 	protected override void InitializeView()
@@ -51,10 +52,13 @@ class ApplicationFacade : Facade
 		RegisterMediator(new TopBarMediator(UIEnum.TopBar));
 		RegisterMediator(new MainMediator(UIEnum.Main));
 		RegisterMediator(new SettingMediator(UIEnum.Setting));
+		RegisterMediator(new WordDescMediator(UIEnum.WordDesc));
+		
 	}
 
 	protected override void InitializeModel()
 	{
 		base.InitializeModel();
+		RegisterProxy(new Model.Proxy.BookMgr());
 	}
 }

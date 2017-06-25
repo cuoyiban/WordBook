@@ -12,8 +12,11 @@ class Enum
 class EventEnum
 {
 	public const string COMMAND_STARTUP = "Startup";
-	public const string COMMAND_WORD_ADDED = "WordAdded";
+	public const string COMMAND_WORD_ADDED = "AddedWord";
+	public const string COMMAND_ADD_WORD = "AddWord";
+	public const string COMMAND_WORD_REFRESH = "WordRefresh";
 	public const string COMMAND_SELECT_FUN_PAGE = "Select_fun_page";//选择功能界面
+	public const string COMMAND_SHOW_DIALOG = "Show_Dialog";//显示对话框
 }
 
 class ProxyEnum
@@ -26,6 +29,7 @@ class UIEnum
 	public const string TopBar = "TopBar";
 	public const string Main = "Main";
 	public const string Setting = "Setting";
+	public const string WordDesc = "WordDesc";
 }
 
 class UIPathEnum

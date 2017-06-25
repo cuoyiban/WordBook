@@ -8,7 +8,7 @@ public class TopBarMediator : ViewMediator , IMediator
 {
 	private UI_TopBar uiTopBar;
 
-	private List<string> topUIName = new List<string> { UIEnum.Main, UIEnum.Setting };
+	private List<string> topUIName = new List<string> { UIEnum.Main,UIEnum.WordDesc , UIEnum.Setting };
 	private new List<string> listCareOfEvent = new List<string> { EventEnum.COMMAND_STARTUP };
 	public TopBarMediator(string strName):base(strName)
 	{

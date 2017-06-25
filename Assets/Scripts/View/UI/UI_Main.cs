@@ -7,7 +7,7 @@ using Model.VO;
 public class UI_Main : MonoBehaviour {
 	public GameObject templateWordOverview;
 	public UI_Menu menuFilter;
-	public VerticalLayoutGroup wordList;
+	public GridLayoutGroup wordList;
 	private List<UI_Word_Overview_Item> listObjWords = new List<UI_Word_Overview_Item>();
 	// Use this for initialization
 	void Start () {

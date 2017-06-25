@@ -10,11 +10,13 @@ namespace Model.VO
         public string Spell;
         public List<AddContextInfo> Contexts;
 		public long Count;
+		public bool IsAlreadyLearn;//是否已学会
         public WordVO(string strSpell)
         {
             Spell = strSpell.ToLower();
             Contexts = new List<AddContextInfo>();
 			Count = 0;
+			IsAlreadyLearn = false;
 
 		}
 

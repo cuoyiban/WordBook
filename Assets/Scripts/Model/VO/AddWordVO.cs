@@ -14,5 +14,12 @@ namespace Model.VO
 			Spell = strSpell;
 			Context = strContext;
 		}
+
+		public AddWordVO(string strSepll , string strContext)
+		{
+			BookName = "Default";
+			Spell = strSepll;
+			Context = strContext;
+		}
 	}
 }

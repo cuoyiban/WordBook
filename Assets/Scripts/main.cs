@@ -9,6 +9,7 @@ public class main : MonoBehaviour {
 	public UI_TopBar uiTopBar;
 	public UI_Main uiMain;
 	public UI_Setting uiSetting;
+	public UI_Word_Desc uiWordDesc;
 	
 	// Use this for initialization
 	void Start () {
@@ -17,6 +18,7 @@ public class main : MonoBehaviour {
 		UIManager.Instance.RegisterUI(UIEnum.TopBar, uiTopBar.gameObject);
 		UIManager.Instance.RegisterUI(UIEnum.Main, uiMain.gameObject);
 		UIManager.Instance.RegisterUI(UIEnum.Setting, uiSetting.gameObject);
+		UIManager.Instance.RegisterUI(UIEnum.WordDesc, uiWordDesc.gameObject);
 		ApplicationFacade facade = ApplicationFacade.Instance as ApplicationFacade;
 		facade.Startup();
 	}
