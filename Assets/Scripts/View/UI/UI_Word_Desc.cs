@@ -15,6 +15,7 @@ public class UI_Word_Desc : MonoBehaviour {
 	public VerticalLayoutGroup contextContainer;
 	public Button btnSearch;
 	public Button btnAddContext;
+	public Toggle checkBoxSearchAutoAdd;
 	public GameObject objContextTemplate;
 	private long m_lThreshold;
 	private List<UI_Context> m_listContexts = new List<UI_Context>();
@@ -89,5 +90,6 @@ public class UI_Word_Desc : MonoBehaviour {
 	public void OnEditorContext(int iIndex , string strContext)
 	{
 		Debug.Log(iIndex.ToString() + " Editor " + strContext);
+
 	}
 }

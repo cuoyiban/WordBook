@@ -32,6 +32,7 @@ public class UI_Context : MonoBehaviour {
 
 	void EditorMode()
 	{
+		return;
 		btnEditor.gameObject.SetActive(false);
 		btnOk.gameObject.SetActive(true);
 		btnCancle.gameObject.SetActive(true);

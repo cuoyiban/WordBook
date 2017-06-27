@@ -6,7 +6,7 @@ public class Util
 {
 
 	public delegate void Process<T>(int iIndex, T obj);
-	public static void RefreshListGameObjectCount<T>(List<T> list, int iCount, GameObject objTemplate, Process<T> process)
+	public static void RefreshListGameObjectCount<T>(List<T> list, int iCount, GameObject objTemplate, Process<T> process) where T : MonoBehaviour
 	{
 		if (list == null || list.Count == iCount || objTemplate == null)
 		{
@@ -37,6 +37,10 @@ public class Util
 		}
 		else
 		{
+			for (int i = iCount; i < list.Count; i++)
+			{
+				GameObject.Destroy(list[i].gameObject);
+			}
 			list.RemoveRange(iCount, list.Count - iCount);
 		}
 	}
