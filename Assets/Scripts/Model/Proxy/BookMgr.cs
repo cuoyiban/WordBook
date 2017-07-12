@@ -8,6 +8,7 @@ using UnityEngine;
 namespace Model.Proxy {
     public class BookMgr :IProxy
     {
+		private DbAccess db;
         private Dictionary<string, BookVO> m_dicBooks;
 
 		#region IProxy
@@ -116,6 +117,35 @@ namespace Model.Proxy {
 			{
 				return 1;
 			}
+		}
+
+		private void InitDB()
+		{
+			db = new DbAccess("data source=wordbook.db");
+			//Check Table is exist
+			
+			bool bIsInit = db.IsTableExist("Book");
+			if (!bIsInit)
+			{
+				//create Table "Book"
+				string cmd = @"CREATE TABLE Book
+								(
+									 ID INTEGER PRIMARY KEY AUTOINCREMENT,
+									 NAME TEXT,
+									 TAG TEXT,
+									 CREATETIME INTEGER,
+								)
+								";
+
+				//create Table "Word"
+
+				//create Table "AddInfo"
+
+				//create Table "Tag"
+
+				//create Table "Word_LearnState"
+			}
+
 		}
 
 		#region Debug Func
