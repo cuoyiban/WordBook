@@ -3,6 +3,7 @@ using System;
 using Model.VO;
 using PureMVC.Interfaces;
 using UnityEngine;
+using Mono.Data.Sqlite;
 
 
 namespace Model.Proxy {
@@ -123,27 +124,81 @@ namespace Model.Proxy {
 		{
 			db = new DbAccess("data source=wordbook.db");
 			//Check Table is exist
-			
+
+			#region Create Table If it not exist
 			bool bIsInit = db.IsTableExist("Book");
 			if (!bIsInit)
 			{
+				string[] cmds = new string[7];
+				//create Table "Tag"
+				cmds[0] = @"CREATE TABLE Tag
+						(
+							 TAG TEXT PRIMARY KEY
+						)";
+
 				//create Table "Book"
-				string cmd = @"CREATE TABLE Book
+				cmds[1] = @"CREATE TABLE Book
 								(
-									 ID INTEGER PRIMARY KEY AUTOINCREMENT,
-									 NAME TEXT,
+									 NAME TEXT NAME TEXT PRIMARY KEY,
 									 TAG TEXT,
-									 CREATETIME INTEGER,
-								)
-								";
+									 CREATETIME INTEGER
+								)";
 
 				//create Table "Word"
-
+				cmds[2] = @"CREATE TABLE Word
+						(
+							 WORD TEXT PRIMARY KEY,
+							 TAG TEXT
+						)";
 				//create Table "AddInfo"
-
-				//create Table "Tag"
-
+				cmds[3] = @"CREATE TABLE AddInfo
+						(
+							 ID INTEGER PRIMARY KEY AUTOINCREMENT,
+							 CONTEXT TEXT,
+							 TAG TEXT,
+							 ADDTIME INTEGER,
+							 WORD TEXT,
+							 FOREIGN KEY(WORD) REFERENCES Word (WORD)
+						)";
+				//create Table "Word_AddInfo"
+				cmds[4] = @"CREATE TABLE Word_AddInfo
+						(
+							 BOOK TEXT,
+							 WORD TEXT,
+							 ADDINFO ID,
+							 FOREIGN KEY(BOOK) REFERENCES Book (NAME),
+							 FOREIGN KEY(WORD) REFERENCES Word (WORD),
+							 FOREIGN KEY(ADDINFO) REFERENCES AddInfo (ID)
+						)
+						";
 				//create Table "Word_LearnState"
+				cmds[5] = @"CREATE TABLE Word_LearnState
+						(
+     
+							 BOOK INTEGER ,
+							 WORD TEXT,
+							 ALREADYLEARN  BOOLEAN,
+							 FOREIGN KEY(BOOK ) REFERENCES Book (ID)
+							 FOREIGN KEY(WORD) REFERENCES Word (WORD)
+						)";
+				cmds[6] = @"insert into Book (NAME , CREATETIME) values ('default' , " + Util.GetCurTimeStamp().ToString() + ")";
+				for (int i = 0; i < cmds.Length; i++)
+				{
+					db.ExecuteQuery(cmds[i]);
+				}
+			}
+			#endregion
+
+			//Load data from db
+			//Load Book
+			string cmd = "select * from Book";
+			using (SqliteDataReader dr = db.ExecuteQuery(cmd))
+			{
+				while (dr.Read())
+				{
+					string strBookName = dr.GetString(dr.GetOrdinal("NAME"));
+					long lCreateTime = dr.GetInt64(dr.GetOrdinal("CREATETIME"));
+				}
 			}
 
 		}
