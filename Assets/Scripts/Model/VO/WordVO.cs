@@ -8,13 +8,13 @@ namespace Model.VO
     public class WordVO
     {
         public string Spell;
-        public List<AddContextInfo> Contexts;
+        public List<AddInfo> Contexts;
 		public long Count;
 		public bool IsAlreadyLearn;//是否已学会
         public WordVO(string strSpell)
         {
             Spell = strSpell.ToLower();
-            Contexts = new List<AddContextInfo>();
+            Contexts = new List<AddInfo>();
 			Count = 0;
 			IsAlreadyLearn = false;
 
@@ -22,7 +22,7 @@ namespace Model.VO
 
 		public void AddContext(string strContext)
 		{
-			Contexts.Add(new AddContextInfo(strContext, Spell));
+			Contexts.Add(new AddInfo(strContext, Spell));
 			Count++;
 		}
 

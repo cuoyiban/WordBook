@@ -10,7 +10,7 @@ namespace Model.Proxy {
     public class BookMgr :IProxy
     {
 		private DbAccess db;
-        private Dictionary<string, BookVO> m_dicBooks;
+        private Dictionary<string, BookVO> m_dicBooks = new Dictionary<string, BookVO>();
 
 		#region IProxy
 		public string ProxyName { get { return ProxyEnum.BOOK_MGR; } }
@@ -44,8 +44,6 @@ namespace Model.Proxy {
 		#endregion
 		public BookMgr()
         {
-            m_dicBooks = new Dictionary<string, BookVO>();
-
 			AddWord("sapling", "Sepling is a baby true");
 			AddWord("sapling", "Sepling is so cute");
 			AddWord("sapling", "I like sapling");
@@ -132,55 +130,53 @@ namespace Model.Proxy {
 				string[] cmds = new string[7];
 				//create Table "Tag"
 				cmds[0] = @"CREATE TABLE Tag
-						(
-							 TAG TEXT PRIMARY KEY
-						)";
+							(
+								 Tag TEXT PRIMARY KEY
+							)";
 
 				//create Table "Book"
 				cmds[1] = @"CREATE TABLE Book
-								(
-									 NAME TEXT NAME TEXT PRIMARY KEY,
-									 TAG TEXT,
-									 CREATETIME INTEGER
-								)";
+							(
+								 BookName TEXT PRIMARY KEY,
+								 Tag TEXT,
+								 CreateTime INTEGER
+							)";
 
 				//create Table "Word"
 				cmds[2] = @"CREATE TABLE Word
-						(
-							 WORD TEXT PRIMARY KEY,
-							 TAG TEXT
-						)";
+							(
+								 Spell TEXT PRIMARY KEY,
+								 Tag TEXT
+							)";
 				//create Table "AddInfo"
 				cmds[3] = @"CREATE TABLE AddInfo
-						(
-							 ID INTEGER PRIMARY KEY AUTOINCREMENT,
-							 CONTEXT TEXT,
-							 TAG TEXT,
-							 ADDTIME INTEGER,
-							 WORD TEXT,
-							 FOREIGN KEY(WORD) REFERENCES Word (WORD)
-						)";
+							(
+								 ID INTEGER PRIMARY KEY AUTOINCREMENT,
+								 Context TEXT,
+								 Tag TEXT,
+								 AddTime INTEGER,
+								 Word TEXT,
+								 FOREIGN KEY(Word) REFERENCES Word (Spell)
+							)";
 				//create Table "Word_AddInfo"
 				cmds[4] = @"CREATE TABLE Word_AddInfo
-						(
-							 BOOK TEXT,
-							 WORD TEXT,
-							 ADDINFO ID,
-							 FOREIGN KEY(BOOK) REFERENCES Book (NAME),
-							 FOREIGN KEY(WORD) REFERENCES Word (WORD),
-							 FOREIGN KEY(ADDINFO) REFERENCES AddInfo (ID)
-						)
-						";
+							(
+								 BookName TEXT,
+								 Word TEXT,
+								 AddInfoID INTEGER ,
+								 FOREIGN KEY(BookName) REFERENCES Book (BookName),
+								FOREIGN KEY(Word) REFERENCES Word (Spell),
+								FOREIGN KEY(AddInfoID) REFERENCES AddInfo (ID)
+							)";
 				//create Table "Word_LearnState"
 				cmds[5] = @"CREATE TABLE Word_LearnState
-						(
-     
-							 BOOK INTEGER ,
-							 WORD TEXT,
-							 ALREADYLEARN  BOOLEAN,
-							 FOREIGN KEY(BOOK ) REFERENCES Book (ID)
-							 FOREIGN KEY(WORD) REFERENCES Word (WORD)
-						)";
+							(    
+								 BookName TEXT,
+								 Word TEXT,
+								 AlreadyLearn BOOLEAN,
+								 FOREIGN KEY(BookName) REFERENCES Book (BookName)
+								 FOREIGN KEY(Word) REFERENCES Word (Spell)
+							)";
 				cmds[6] = @"insert into Book (NAME , CREATETIME) values ('default' , " + Util.GetCurTimeStamp().ToString() + ")";
 				for (int i = 0; i < cmds.Length; i++)
 				{
@@ -198,9 +194,48 @@ namespace Model.Proxy {
 				{
 					string strBookName = dr.GetString(dr.GetOrdinal("NAME"));
 					long lCreateTime = dr.GetInt64(dr.GetOrdinal("CREATETIME"));
+					m_dicBooks.Add(strBookName, new BookVO(strBookName, lCreateTime));
+				}
+				dr.Close();
+			}
+
+			cmd = "select * from Word_AddInfo";
+			using (SqliteDataReader dr = db.ExecuteQuery(cmd))
+			{
+				while (dr.Read())
+				{
+					string strBookName = dr.GetString(dr.GetOrdinal("BOOK"));
+					string strBookName = dr.GetString(dr.GetOrdinal("BOOK"));
 				}
 			}
 
+		}
+
+		private void LoadBook(string strBookName)
+		{
+			string cmd = "select * from Word_AddInfo where BOOK = '" + strBookName + "'";
+			using (SqliteDataReader dr = db.ExecuteQuery(cmd))
+			{
+				while (dr.Read())
+				{
+					string strWord = dr.GetString(dr.GetOrdinal("WORD"));
+					long addInfoID = dr.GetInt64(dr.GetOrdinal("ADDINFO"));
+				}
+			}
+		}
+
+		private AddInfo LoadAddInfo(long lAddInfoID)
+		{
+			string cmd = "select * from AddInfo where ID = " + lAddInfoID.ToString();
+			using (SqliteDataReader dr = db.ExecuteQuery(cmd))
+			{
+				while (dr.Read())
+				{
+					string strWord = dr.GetString(dr.GetOrdinal("WORD"));
+					long addInfoID = dr.GetInt64(dr.GetOrdinal("ADDINFO"));
+				}
+			}
+			return
 		}
 
 		#region Debug Func

@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using Model.VO;
 
 public class UI_Context : MonoBehaviour {
-	private AddContextInfo contextInfo;
+	private AddInfo contextInfo;
 	private int m_iIndex;
 	public Text labelNO;
 	public Text labelTag;
@@ -81,7 +81,7 @@ public class UI_Context : MonoBehaviour {
 		ShowMode();
 	}
 
-	public void SetContextInfo(int iIndex , AddContextInfo contextInfo)
+	public void SetContextInfo(int iIndex , AddInfo contextInfo)
 	{
 		this.contextInfo = contextInfo;
 		m_iIndex = iIndex;

@@ -7,10 +7,18 @@ namespace Model.VO
 	public class BookVO
 	{
 		private string BookName;
+		private long m_lCreateTime;
 		public Dictionary<string, WordVO> Words { get; set; }
 		public BookVO(string strBookName)
 		{
 			BookName = strBookName;
+			Words = new Dictionary<string, WordVO>();
+		}
+
+		public BookVO(string strBookName , long lCreateTime)
+		{
+			BookName = strBookName;
+			m_lCreateTime = lCreateTime;
 			Words = new Dictionary<string, WordVO>();
 		}
 
