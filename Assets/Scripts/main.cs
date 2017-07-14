@@ -13,6 +13,17 @@ public class main : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
+		//Startup();
+		TT();
+	}
+	
+	// Update is called once per frame
+	void Update () {
+	
+	}
+
+	void Startup()
+	{
 		//Init UIManger
 		UIManager.Instance.UIRoot = uiRoot;
 		UIManager.Instance.RegisterUI(UIEnum.TopBar, uiTopBar.gameObject);
@@ -22,9 +33,9 @@ public class main : MonoBehaviour {
 		ApplicationFacade facade = ApplicationFacade.Instance as ApplicationFacade;
 		facade.Startup();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+
+	void TT()
+	{
+		Test.TestGUID();
 	}
 }

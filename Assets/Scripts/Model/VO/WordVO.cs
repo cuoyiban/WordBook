@@ -26,6 +26,12 @@ namespace Model.VO
 			Count++;
 		}
 
+		public void AddAddInfo(AddInfo addInfo)
+		{
+			Contexts.Add(addInfo);
+			Count++;
+		}
+
 		#region Debug Func
 		public string DebugInfo()
 		{
@@ -33,7 +39,7 @@ namespace Model.VO
 			str += string.Format("Word {0} have {1} context \n", Spell, Count);
 			for (int i = 0; i < Contexts.Count; i++)
 			{
-				str += Contexts[i].Context + " Time : " + Contexts[i].AddTime.ToString() + " RelatedWord is " + Contexts[i].RelatedWord  + "\n";
+				str += Contexts[i].Context + " Time : " + Contexts[i].AddTime.ToString() + " RelatedWord is " + Contexts[i].RelatedWord + "\n";
 			}
 			return str;
 		}

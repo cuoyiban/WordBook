@@ -44,6 +44,22 @@ namespace Model.VO
 			}
 		}
 
+		public void AddWord(string strSpell , AddInfo addInfo)
+		{
+
+			WordVO wordVO = null;
+			if (!Words.ContainsKey(strSpell))
+			{
+				wordVO = new WordVO(strSpell);
+				Words.Add(strSpell, wordVO);
+			}
+			else
+			{
+				wordVO = Words[strSpell];
+			}
+			wordVO.AddAddInfo(addInfo);
+		}
+
 		public void AddWord(string strSpell, string strContext)
 		{
 			WordVO wordVO = null;
@@ -57,6 +73,20 @@ namespace Model.VO
 				wordVO = Words[strSpell];
 			}
 			wordVO.AddContext(strContext);
+		}
+
+		public void SetWordState(string strWord , bool bAlreadyLearned)
+		{
+			WordVO wordVO = null;
+			if (!Words.ContainsKey(strWord))
+			{
+				return;
+			}
+			else
+			{
+				wordVO = Words[strWord];
+			}
+			wordVO.IsAlreadyLearn = bAlreadyLearned;
 		}
 
 		#region Debug Func

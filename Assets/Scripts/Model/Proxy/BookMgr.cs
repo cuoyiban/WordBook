@@ -75,8 +75,23 @@ namespace Model.Proxy {
 			{
 				book = m_dicBooks[strBookName];
 			}
+			AddInfo addInfo = new AddInfo(Util.GetUUID() , strContext , "" , strWord , Util.GetCurTimeStamp());
 			book.AddWord(strWord, strContext);
         }
+
+		public void AddWord(string strBookName , string strWord , AddInfo addInfo)
+		{
+			BookVO book = null;
+			if (!m_dicBooks.ContainsKey(strBookName))
+			{
+				book = AddBook(strBookName);
+			}
+			else
+			{
+				book = m_dicBooks[strBookName];
+			}
+			book.AddWord(strWord, addInfo);
+		}
 
 		public void AddWord(string strWord , string strContext)
 		{
@@ -92,6 +107,16 @@ namespace Model.Proxy {
 			return m_dicBooks[m_strDefaultBook].GetWord(strWord);
 		}
 
+		public void SetWordState(string strBookName , string strWord , bool bAlreadyLearned)
+		{
+			BookVO bookVO;
+			if (!m_dicBooks.ContainsKey(strBookName))
+			{
+				return;
+			}
+			bookVO = m_dicBooks[strBookName];
+			bookVO.SetWordState(strWord, bAlreadyLearned);
+		}
 		
 
 		public List<WordVO> GetWordWithSort(string strBookName , Comparison<WordVO> sortFunc = null)
@@ -151,7 +176,7 @@ namespace Model.Proxy {
 				//create Table "AddInfo"
 				cmds[3] = @"CREATE TABLE AddInfo
 							(
-								 ID INTEGER PRIMARY KEY AUTOINCREMENT,
+								 ID TEXT PRIMARY KEY,
 								 Context TEXT,
 								 Tag TEXT,
 								 AddTime INTEGER,
@@ -163,10 +188,10 @@ namespace Model.Proxy {
 							(
 								 BookName TEXT,
 								 Word TEXT,
-								 AddInfoID INTEGER ,
+								 AddInfoID TEXT ,
 								 FOREIGN KEY(BookName) REFERENCES Book (BookName),
-								FOREIGN KEY(Word) REFERENCES Word (Spell),
-								FOREIGN KEY(AddInfoID) REFERENCES AddInfo (ID)
+								 FOREIGN KEY(Word) REFERENCES Word (Spell),
+								 FOREIGN KEY(AddInfoID) REFERENCES AddInfo (ID)
 							)";
 				//create Table "Word_LearnState"
 				cmds[5] = @"CREATE TABLE Word_LearnState
@@ -199,44 +224,41 @@ namespace Model.Proxy {
 				dr.Close();
 			}
 
-			cmd = "select * from Word_AddInfo";
+			//读取所有的单词添加记录
+			cmd = @"select AddInfo.ID AddInfo.Context AddInfo.Tag AddInfo.AddTime Word_AddInfo.BookName Word_AddInfo.Word
+					from AddInfo inner join Word_AddInfo
+					on AddInfo.ID = Word_AddInfo.AddInfoID";
 			using (SqliteDataReader dr = db.ExecuteQuery(cmd))
 			{
 				while (dr.Read())
 				{
-					string strBookName = dr.GetString(dr.GetOrdinal("BOOK"));
-					string strBookName = dr.GetString(dr.GetOrdinal("BOOK"));
+					string strAddInfoID = dr.GetString(dr.GetOrdinal("AddInfo.ID"));
+					string strContext = dr.GetString(dr.GetOrdinal("AddInfo.Context"));
+					string strTag = dr.GetString(dr.GetOrdinal("AddInfo.Tag"));
+					long lAddTime = dr.GetInt64(dr.GetOrdinal("AddInfo.AddTime"));
+					string strBookName = dr.GetString(dr.GetOrdinal("Word_AddInfo.BookName"));
+					string strWord = dr.GetString(dr.GetOrdinal("Word_AddInfo.Word"));
+					AddWord(strBookName, strWord, new AddInfo(strAddInfoID, strContext, strTag, strWord, lAddTime));
 				}
 			}
 
-		}
-
-		private void LoadBook(string strBookName)
-		{
-			string cmd = "select * from Word_AddInfo where BOOK = '" + strBookName + "'";
+			//读取所有单词的学习状态
+			cmd = @"select * from Word_LearnState";
 			using (SqliteDataReader dr = db.ExecuteQuery(cmd))
 			{
 				while (dr.Read())
 				{
-					string strWord = dr.GetString(dr.GetOrdinal("WORD"));
-					long addInfoID = dr.GetInt64(dr.GetOrdinal("ADDINFO"));
+					//BookName TEXT,
+					//Word TEXT,
+					// AlreadyLearn BOOLEAN,
+					string strBookName = dr.GetString(dr.GetOrdinal("BookName"));
+					string strWord = dr.GetString(dr.GetOrdinal("Word"));
+					bool bAlreadyLearned = dr.GetBoolean(dr.GetOrdinal("AlreadyLearn"));
 				}
+				dr.Close();
 			}
 		}
 
-		private AddInfo LoadAddInfo(long lAddInfoID)
-		{
-			string cmd = "select * from AddInfo where ID = " + lAddInfoID.ToString();
-			using (SqliteDataReader dr = db.ExecuteQuery(cmd))
-			{
-				while (dr.Read())
-				{
-					string strWord = dr.GetString(dr.GetOrdinal("WORD"));
-					long addInfoID = dr.GetInt64(dr.GetOrdinal("ADDINFO"));
-				}
-			}
-			return
-		}
 
 		#region Debug Func
 		public string DebugInfo()

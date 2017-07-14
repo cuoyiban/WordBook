@@ -62,8 +62,14 @@ public class Test
 		}
 		Debug.Log(str);
 
-
 		//Debug.Log(bookMgr.DebugInfo());
+	}
+
+	public static void TestGUID()
+	{
+		Debug.Log(System.Guid.NewGuid().ToString("N"));
+		Debug.Log(System.Guid.NewGuid().ToString("N"));
+		Debug.Log(System.Guid.NewGuid().ToString("N"));
 	}
 
 }
