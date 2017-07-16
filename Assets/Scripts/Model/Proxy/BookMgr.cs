@@ -44,13 +44,14 @@ namespace Model.Proxy {
 		#endregion
 		public BookMgr()
         {
-			AddWord("sapling", "Sepling is a baby true");
-			AddWord("sapling", "Sepling is so cute");
-			AddWord("sapling", "I like sapling");
-			AddWord("sapling", "Sepling is so cute");
-			AddWord("glass", "He need some glass");
-			AddWord("glass", "I have got glass");
-			AddWord("apple", "Apple is so rich");
+			//AddWord("sapling", "Sepling is a baby true");
+			//AddWord("sapling", "Sepling is so cute");
+			//AddWord("sapling", "I like sapling");
+			//AddWord("sapling", "Sepling is so cute");
+			//AddWord("glass", "He need some glass");
+			//AddWord("glass", "I have got glass");
+			//AddWord("apple", "Apple is so rich");
+			InitDB();
 		}
 
         public BookVO AddBook(string strBookName)
@@ -76,7 +77,7 @@ namespace Model.Proxy {
 				book = m_dicBooks[strBookName];
 			}
 			AddInfo addInfo = new AddInfo(Util.GetUUID() , strContext , "" , strWord , Util.GetCurTimeStamp());
-			book.AddWord(strWord, strContext);
+			book.AddWord(strWord, addInfo);
         }
 
 		public void AddWord(string strBookName , string strWord , AddInfo addInfo)
@@ -202,7 +203,7 @@ namespace Model.Proxy {
 								 FOREIGN KEY(BookName) REFERENCES Book (BookName)
 								 FOREIGN KEY(Word) REFERENCES Word (Spell)
 							)";
-				cmds[6] = @"insert into Book (NAME , CREATETIME) values ('default' , " + Util.GetCurTimeStamp().ToString() + ")";
+				cmds[6] = @"insert into Book (BookName , CREATETIME) values ('default' , " + Util.GetCurTimeStamp().ToString() + ")";
 				for (int i = 0; i < cmds.Length; i++)
 				{
 					db.ExecuteQuery(cmds[i]);
@@ -210,54 +211,83 @@ namespace Model.Proxy {
 			}
 			#endregion
 
-			//Load data from db
-			//Load Book
-			string cmd = "select * from Book";
-			using (SqliteDataReader dr = db.ExecuteQuery(cmd))
-			{
-				while (dr.Read())
-				{
-					string strBookName = dr.GetString(dr.GetOrdinal("NAME"));
-					long lCreateTime = dr.GetInt64(dr.GetOrdinal("CREATETIME"));
-					m_dicBooks.Add(strBookName, new BookVO(strBookName, lCreateTime));
-				}
-				dr.Close();
-			}
+			////Load data from db
+			////Load Book
+			//string cmd = "select * from Book";
+			//using (SqliteDataReader dr = db.ExecuteQuery(cmd))
+			//{
+			//	while (dr.Read())
+			//	{
+			//		string strBookName = dr.GetString(dr.GetOrdinal("BookName"));
+			//		long lCreateTime = dr.GetInt64(dr.GetOrdinal("CreateTime"));
+			//		m_dicBooks.Add(strBookName, new BookVO(strBookName, lCreateTime));
+			//	}
+			//	dr.Close();
+			//}
 
-			//读取所有的单词添加记录
-			cmd = @"select AddInfo.ID AddInfo.Context AddInfo.Tag AddInfo.AddTime Word_AddInfo.BookName Word_AddInfo.Word
-					from AddInfo inner join Word_AddInfo
-					on AddInfo.ID = Word_AddInfo.AddInfoID";
-			using (SqliteDataReader dr = db.ExecuteQuery(cmd))
-			{
-				while (dr.Read())
-				{
-					string strAddInfoID = dr.GetString(dr.GetOrdinal("AddInfo.ID"));
-					string strContext = dr.GetString(dr.GetOrdinal("AddInfo.Context"));
-					string strTag = dr.GetString(dr.GetOrdinal("AddInfo.Tag"));
-					long lAddTime = dr.GetInt64(dr.GetOrdinal("AddInfo.AddTime"));
-					string strBookName = dr.GetString(dr.GetOrdinal("Word_AddInfo.BookName"));
-					string strWord = dr.GetString(dr.GetOrdinal("Word_AddInfo.Word"));
-					AddWord(strBookName, strWord, new AddInfo(strAddInfoID, strContext, strTag, strWord, lAddTime));
-				}
-			}
+			////读取所有的单词添加记录
+			//cmd = @"select AddInfo.ID AddInfo.Context AddInfo.Tag AddInfo.AddTime Word_AddInfo.BookName Word_AddInfo.Word
+			//		from AddInfo inner join Word_AddInfo
+			//		on AddInfo.ID = Word_AddInfo.AddInfoID";
+			//using (SqliteDataReader dr = db.ExecuteQuery(cmd))
+			//{
+			//	while (dr.Read())
+			//	{
+			//		string strAddInfoID = dr.GetString(dr.GetOrdinal("AddInfo.ID"));
+			//		string strContext = dr.GetString(dr.GetOrdinal("AddInfo.Context"));
+			//		string strTag = dr.GetString(dr.GetOrdinal("AddInfo.Tag"));
+			//		long lAddTime = dr.GetInt64(dr.GetOrdinal("AddInfo.AddTime"));
+			//		string strBookName = dr.GetString(dr.GetOrdinal("Word_AddInfo.BookName"));
+			//		string strWord = dr.GetString(dr.GetOrdinal("Word_AddInfo.Word"));
+			//		AddWord(strBookName, strWord, new AddInfo(strAddInfoID, strContext, strTag, strWord, lAddTime));
+			//	}
+			//}
 
-			//读取所有单词的学习状态
-			cmd = @"select * from Word_LearnState";
-			using (SqliteDataReader dr = db.ExecuteQuery(cmd))
-			{
-				while (dr.Read())
-				{
-					//BookName TEXT,
-					//Word TEXT,
-					// AlreadyLearn BOOLEAN,
-					string strBookName = dr.GetString(dr.GetOrdinal("BookName"));
-					string strWord = dr.GetString(dr.GetOrdinal("Word"));
-					bool bAlreadyLearned = dr.GetBoolean(dr.GetOrdinal("AlreadyLearn"));
-				}
-				dr.Close();
-			}
+			////读取所有单词的学习状态
+			//cmd = @"select * from Word_LearnState";
+			//using (SqliteDataReader dr = db.ExecuteQuery(cmd))
+			//{
+			//	while (dr.Read())
+			//	{
+			//		//BookName TEXT,
+			//		//Word TEXT,
+			//		// AlreadyLearn BOOLEAN,
+			//		string strBookName = dr.GetString(dr.GetOrdinal("BookName"));
+			//		string strWord = dr.GetString(dr.GetOrdinal("Word"));
+			//		bool bAlreadyLearned = dr.GetBoolean(dr.GetOrdinal("AlreadyLearn"));
+			//	}
+			//	dr.Close();
+			//}
 		}
+
+		public void Exit()
+		{
+			db.CloseSqlConnection();
+		}
+
+		#region UpdateDB
+		public void DB_AddWord(string strBookName , string strWord , string strAddInfoID , string strContext , string strTag , long lAddTime)
+		{
+			//查询单词本是否存在，无则添加
+
+			//查询单词是否存在，无则添加
+
+			//添加 添加信心到AddInfo表
+
+			//添加 记录到关联表
+		}
+
+		public void DB_AddBookIfNotExist(string strBookName)
+		{
+
+		}
+
+		public void DB_AddWordIfNotExist(string strWordName)
+		{
+
+		}
+
+		#endregion
 
 
 		#region Debug Func

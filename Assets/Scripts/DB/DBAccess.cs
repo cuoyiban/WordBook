@@ -96,7 +96,7 @@ public class DbAccess
 
 	public bool IsTableExist(string strTableName)
 	{
-		string command = "select * from sqlite_master where type = 'table' and name = " + strTableName + "'Book'";
+		string command = "select * from sqlite_master where type = 'table' and name = " + Util.StringToDBString(strTableName);
 		using (SqliteDataReader dr = ExecuteQuery(command))
 		{
 			bool bResult = false;

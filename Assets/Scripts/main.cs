@@ -36,6 +36,6 @@ public class main : MonoBehaviour {
 
 	void TT()
 	{
-		Test.TestGUID();
+		Test.TestDB();
 	}
 }

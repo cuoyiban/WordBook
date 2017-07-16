@@ -56,4 +56,9 @@ public class Util
 	{
 		return System.Guid.NewGuid().ToString("N");
 	}
+
+	public static string StringToDBString(string str)
+	{
+		return "'" + str + "'";
+	}
 }

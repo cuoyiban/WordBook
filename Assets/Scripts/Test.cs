@@ -72,4 +72,9 @@ public class Test
 		Debug.Log(System.Guid.NewGuid().ToString("N"));
 	}
 
+	public static void TestDB()
+	{
+		BookMgr bookMgr = new BookMgr();
+		bookMgr.Exit();
+	}
 }
