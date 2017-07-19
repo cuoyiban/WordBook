@@ -75,6 +75,9 @@ public class Test
 	public static void TestDB()
 	{
 		BookMgr bookMgr = new BookMgr();
+		bookMgr.DB_AddBookIfNotExist("TestBook1");
+		bookMgr.DB_AddBookIfNotExist("TestBook2");
+		bookMgr.DB_AddBookIfNotExist("TestBook2");
 		bookMgr.Exit();
 	}
 }

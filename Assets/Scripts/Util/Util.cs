@@ -61,4 +61,9 @@ public class Util
 	{
 		return "'" + str + "'";
 	}
+
+	public static string AddSpace(string str)
+	{
+		return " " + str + " ";
+	}
 }

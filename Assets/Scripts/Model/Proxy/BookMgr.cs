@@ -279,7 +279,16 @@ namespace Model.Proxy {
 
 		public void DB_AddBookIfNotExist(string strBookName)
 		{
-
+			string cmd = "select" + Util.AddSpace(DBString.BookName) + "from" + Util.AddSpace(DBString.TB_Book) + "where" + Util.AddSpace(DBString.BookName) + "=" + Util.AddSpace(Util.StringToDBString(strBookName)); 
+			using(SqliteDataReader dr = db.ExecuteQuery(cmd))
+			{
+				if (!dr.HasRows)
+				{
+					cmd = "insert into" + Util.AddSpace(DBString.TB_Book) + "(" + Util.AddSpace(DBString.BookName) + ") values(" + Util.AddSpace(Util.StringToDBString(strBookName)) + ")";
+					db.ExecuteQuery(cmd);
+				}
+				dr.Close();
+			}
 		}
 
 		public void DB_AddWordIfNotExist(string strWordName)

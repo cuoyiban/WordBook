@@ -39,3 +39,10 @@ class UIPathEnum
 	public static string Setting = "Assets\\UIPrefab\\UI_Setting.prefab";
 	public static string Add_Word = "Assets\\UIPrefab\\UI_Book.prefab";
 }
+
+class DBString
+{
+	public static string TB_Book = "Book";
+	public static string BookName = "BookName";
+	public static string BookTag = "Tag";
+}
