@@ -284,7 +284,8 @@ namespace Model.Proxy {
 			{
 				if (!dr.HasRows)
 				{
-					cmd = "insert into" + Util.AddSpace(DBString.TB_Book) + "(" + Util.AddSpace(DBString.BookName) + ") values(" + Util.AddSpace(Util.StringToDBString(strBookName)) + ")";
+					cmd = string.Format("insert into {0}({1} , {2}) values({3} , {4})", DBString.TB_Book, DBString.BookName, DBString.BookCreateTime, Util.StringToDBString(strBookName), Util.GetCurTimeStamp());
+					//cmd = "insert into" + Util.AddSpace(DBString.TB_Book) + "(" + Util.AddSpace(DBString.BookName) + ") values(" + Util.AddSpace(Util.StringToDBString(strBookName)) + ")";
 					db.ExecuteQuery(cmd);
 				}
 				dr.Close();

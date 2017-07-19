@@ -80,4 +80,9 @@ public class Test
 		bookMgr.DB_AddBookIfNotExist("TestBook2");
 		bookMgr.Exit();
 	}
+
+	public static void TestJson()
+	{
+
+	}
 }
