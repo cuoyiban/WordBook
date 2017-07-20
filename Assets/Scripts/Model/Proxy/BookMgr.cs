@@ -269,11 +269,11 @@ namespace Model.Proxy {
 		public void DB_AddWord(string strBookName , string strWord , string strAddInfoID , string strContext , string strTag , long lAddTime)
 		{
 			//查询单词本是否存在，无则添加
-
+			DB_AddBookIfNotExist(strBookName);
 			//查询单词是否存在，无则添加
-
+			DB_AddWordIfNotExist(strWord);
 			//添加 添加信心到AddInfo表
-
+			string cmd = 
 			//添加 记录到关联表
 		}
 
@@ -285,7 +285,6 @@ namespace Model.Proxy {
 				if (!dr.HasRows)
 				{
 					cmd = string.Format("insert into {0}({1} , {2}) values({3} , {4})", DBString.TB_Book, DBString.BookName, DBString.BookCreateTime, Util.StringToDBString(strBookName), Util.GetCurTimeStamp());
-					//cmd = "insert into" + Util.AddSpace(DBString.TB_Book) + "(" + Util.AddSpace(DBString.BookName) + ") values(" + Util.AddSpace(Util.StringToDBString(strBookName)) + ")";
 					db.ExecuteQuery(cmd);
 				}
 				dr.Close();
@@ -294,7 +293,16 @@ namespace Model.Proxy {
 
 		public void DB_AddWordIfNotExist(string strWordName)
 		{
-
+			string cmd = string.Format("select {0} from {1} where {2} = {3}", "*", DBString.TB_Word, DBString.Word, Util.StringToDBString(strWordName));
+			using (SqliteDataReader dr = db.ExecuteQuery(cmd))
+			{
+				if (!dr.HasRows)
+				{
+					cmd = string.Format("insert into {0}({1}) values({3})", DBString.TB_Word, DBString.Word, Util.StringToDBString(strWordName));
+					db.ExecuteQuery(cmd);
+				}
+				dr.Close();
+			}
 		}
 
 		#endregion

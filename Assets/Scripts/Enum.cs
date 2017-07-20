@@ -46,4 +46,8 @@ class DBString
 	public static string BookName = "BookName";
 	public static string BookCreateTime = "CreateTime";
 	public static string BookTag = "Tag";
+
+	public static string TB_Word = "Word";
+	public static string Word = "Spell";
+	public static string WordTag = "Tag";
 }
