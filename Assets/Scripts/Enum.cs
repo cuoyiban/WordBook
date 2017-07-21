@@ -50,4 +50,11 @@ class DBString
 	public static string TB_Word = "Word";
 	public static string Word = "Spell";
 	public static string WordTag = "Tag";
+
+	public static string TB_AddInfo = "AddInfo";
+	public static string AddInfoID = "ID";
+	public static string AddInfoTag = "Tag";
+	public static string AddInfoRelatedWord = "RelatedWord";
+	public static string AddInfoContext = "Context";
+	public static string AddInfoTime = "AddTime";
 }

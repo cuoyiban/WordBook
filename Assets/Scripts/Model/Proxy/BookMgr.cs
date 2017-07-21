@@ -4,7 +4,9 @@ using Model.VO;
 using PureMVC.Interfaces;
 using UnityEngine;
 using Mono.Data.Sqlite;
-
+using System.IO;
+using System.Text;
+using LitJson;
 
 namespace Model.Proxy {
     public class BookMgr :IProxy
@@ -51,7 +53,8 @@ namespace Model.Proxy {
 			//AddWord("glass", "He need some glass");
 			//AddWord("glass", "I have got glass");
 			//AddWord("apple", "Apple is so rich");
-			InitDB();
+			//InitDB();
+			AddBook(m_strDefaultBook);
 		}
 
         public BookVO AddBook(string strBookName)
@@ -78,7 +81,14 @@ namespace Model.Proxy {
 			}
 			AddInfo addInfo = new AddInfo(Util.GetUUID() , strContext , "" , strWord , Util.GetCurTimeStamp());
 			book.AddWord(strWord, addInfo);
+			//DB_AddWordIfNotExist(strWord);
+			//DB_AddAddInfo(addInfo.ID, addInfo.Tag, addInfo.RelatedWord, addInfo.Context, addInfo.AddTime);
         }
+
+		public void AddWordToDefault(string strWord, string strContext)
+		{
+			AddWord(m_strDefaultBook, strWord, strContext);
+		}
 
 		public void AddWord(string strBookName , string strWord , AddInfo addInfo)
 		{
@@ -273,7 +283,7 @@ namespace Model.Proxy {
 			//查询单词是否存在，无则添加
 			DB_AddWordIfNotExist(strWord);
 			//添加 添加信心到AddInfo表
-			string cmd = 
+			//string cmd = 
 			//添加 记录到关联表
 		}
 
@@ -305,9 +315,58 @@ namespace Model.Proxy {
 			}
 		}
 
+		public void DB_AddAddInfo(string strID , string strTag , string strRelatedWord , string strContext , long lAddTime)
+		{
+			string cmd = string.Format("select {0} from {1} where {2} = {3}", "*", DBString.TB_AddInfo, DBString.AddInfoID, Util.StringToDBString(strID));
+			using (SqliteDataReader dr = db.ExecuteQuery(cmd))
+			{
+				if (!dr.HasRows)
+				{
+					cmd = string.Format("insert into {0} values({1},{2},{3},{4},{5})", DBString.TB_AddInfo,strID , strContext , strTag , lAddTime , strRelatedWord);
+					db.ExecuteQuery(cmd);
+				}
+				else
+				{
+
+				}
+				dr.Close();
+			}
+		}
+
 		#endregion
 
 
+		#region SaveLoad
+		private string s_saveFilePath = "E:\\WordBookData.txt";
+		public void Save()
+		{
+			string json = JsonMapper.ToJson(m_dicBooks);
+			FileStream fs = new FileStream(s_saveFilePath, FileMode.Create);
+			byte[] data = System.Text.Encoding.Default.GetBytes(json);
+			fs.Write(data, 0, data.Length);
+			fs.Flush();
+			fs.Close();
+		}
+
+		public void Load()
+		{
+			FileStream file = new FileStream(s_saveFilePath, FileMode.Open);
+			long beginPos = file.Seek(0, SeekOrigin.Begin);
+			long endPos = file.Seek(0, SeekOrigin.End);
+			file.Seek(0, SeekOrigin.Begin);
+			byte[] data = new byte[endPos - beginPos];
+			file.Read(data, 0, data.Length);
+			Decoder d = Encoding.Default.GetDecoder();
+			char[] charData = new char[data.Length];
+			d.GetChars(data, 0, data.Length, charData, 0);
+			string json = new string(charData);
+			Dictionary<string, BookVO> temp = JsonMapper.ToObject<Dictionary<string, BookVO>>(json);
+			int jjj = 10;
+			
+		}
+
+
+		#endregion
 		#region Debug Func
 		public string DebugInfo()
 		{

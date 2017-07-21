@@ -6,9 +6,24 @@ namespace Model.VO
 {
 	public class BookVO
 	{
-		private string BookName;
+		public string BookName { get; set; }
 		private long m_lCreateTime;
+		public long CreateTime
+		{
+			get
+			{
+				return m_lCreateTime;
+			}
+			set
+			{
+				value = m_lCreateTime;
+			}
+		}
 		public Dictionary<string, WordVO> Words { get; set; }
+		public BookVO()
+		{
+
+		}
 		public BookVO(string strBookName)
 		{
 			BookName = strBookName;

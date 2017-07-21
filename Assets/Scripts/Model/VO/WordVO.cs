@@ -7,10 +7,15 @@ namespace Model.VO
 {
     public class WordVO
     {
-        public string Spell;
+        public string Spell { get; set; }
         public List<AddInfo> Contexts;
-		public long Count;
-		public bool IsAlreadyLearn;//是否已学会
+		public long Count { get; set; }
+		public bool IsAlreadyLearn { get; set; }//是否已学会
+
+		public WordVO()
+		{
+
+		}
         public WordVO(string strSpell)
         {
             Spell = strSpell.ToLower();
