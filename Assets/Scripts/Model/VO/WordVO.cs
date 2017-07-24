@@ -9,7 +9,7 @@ namespace Model.VO
     {
         public string Spell { get; set; }
         public List<AddInfo> Contexts;
-		public long Count { get; set; }
+		public int Count { get; set; }
 		public bool IsAlreadyLearn { get; set; }//是否已学会
 
 		public WordVO()

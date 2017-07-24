@@ -67,13 +67,10 @@ public class Util
 		return " " + str + " ";
 	}
 
-	//计算sourceType 是否可以转换到destType 而不损失精度，比如int32->int64
-	public static Dictionary<TypeCode, int> typeTransformWeight = new Dictionary<TypeCode, int>
+	public static Int64 Int32ToInt64(Int32 input)
 	{
-		{ TypeCode.Int64 , 10} , { TypeCode.Int32 ,9 } , { TypeCode.Int16 , 8}
-	};
-	public static bool CanTransform(TypeCode destType , TypeCode sourceType)
-	{
-		return typeTransformWeight[destType] > typeTransformWeight[sourceType];
+		return Convert.ToInt64(input);
 	}
+
+	
 }

@@ -11,6 +11,10 @@ namespace Model.VO
 		public string Context;
 		public long AddTime;
 
+		public AddInfo()
+		{
+
+		}
 		public AddInfo(string strRelatedWord , string strContext , long lAddTime)
 		{
 			Init(strRelatedWord ,strContext , lAddTime);

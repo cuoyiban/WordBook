@@ -57,16 +57,25 @@ namespace Model.Proxy {
 			AddBook(m_strDefaultBook);
 		}
 
-        public BookVO AddBook(string strBookName)
+        public BookVO AddBook(string strBookName , long lCreateTime)
         {
             BookVO book = null;
             if (!m_dicBooks.ContainsKey(strBookName))
             {
-                book = new BookVO(strBookName);
+                book = new BookVO(strBookName , lCreateTime);
                 m_dicBooks.Add(strBookName, book);
-            }
+			}
+			else
+			{
+				book = m_dicBooks[strBookName];
+			}
             return book;
         }
+
+		public BookVO AddBook(string strBookName)
+		{
+			return AddBook(strBookName, Util.GetCurTimeStamp());
+		}
 
         public void AddWord(string strBookName , string strWord , string strContext)
         {
@@ -360,32 +369,13 @@ namespace Model.Proxy {
 			char[] charData = new char[data.Length];
 			d.GetChars(data, 0, data.Length, charData, 0);
 			string json = new string(charData);
+			JsonMapper.RegisterImporter<Int32, Int64>(Util.Int32ToInt64);
 			Dictionary<string, BookVO> temp = JsonMapper.ToObject<Dictionary<string, BookVO>>(json);
-			int jjj = 10;
+			file.Close();
 			
 		}
 
 
-		#endregion
-		#region Debug Func
-		public string DebugInfo()
-		{
-			string str = "";
-			//str += string.Format("Book Count {0}\n", m_dicBooks.Count);
-			//foreach (var item in m_dicBooks)
-			//{
-			//	str += string.Format("Book {0} , has {1} Words \n", item.Value.BookName, item.Value.Words.Count);
-			//	foreach (var item2 in item.Value.Words)
-			//	{
-			//		str += string.Format("\t Word {0} , Count {1}\n", item2.Value.Spell, item2.Value.Count);
-			//		for (int i = 0; i < item2.Value.Count; i++)
-			//		{
-			//			str += string.Format("\t\t Context :{0} , Time {1} , RelatedWord {2} \n", item2.Value.Contexts[i].Context, item2.Value.Contexts[i].AddTime, item2.Value.Contexts[i].RelatedWord);
-			//		}
-			//	}
-			//}
-			return str;
-		}
 		#endregion
 	}
 }

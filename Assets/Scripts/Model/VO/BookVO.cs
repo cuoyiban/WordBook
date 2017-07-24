@@ -103,18 +103,5 @@ namespace Model.VO
 			}
 			wordVO.IsAlreadyLearn = bAlreadyLearned;
 		}
-
-		#region Debug Func
-		//public string DebugInfo()
-		//{
-		//	string str = "";
-		//	str += string.Format("Book {0} have {1} words \n", BookName, Words.Count);
-		//	for (int i = 0; i < Contexts.Count; i++)
-		//	{
-		//		str += Contexts[i].Context + " Time : " + Contexts[i].AddTime.ToString() + " RelatedWord is " + Contexts[i].RelatedWord + "\n";
-		//	}
-		//	return str;
-		//}
-		#endregion
 	}
 }
